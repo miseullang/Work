@@ -1,0 +1,19 @@
+:root {
+  --darkGray: #131314;
+  --subGray: #424242;
+  --middleGray: #999999;
+  --lightGray: #c9c9c9;
+  --subGraypurple: #f7f6f7;
+  --bodyCol: #333;
+  --mainPink: #EE3E6D;
+  --black: #050404;
+  --white: #ffffff;
+  --comPadding: 0 30px;
+  --grayBlue: #8a90ac;
+  --lineGray: #c4cedb;
+  --maxWidth: 1280px;
+  --maxWidthBoard: 1440px;
+  --main_blue: #301B7D;
+  --subBlue: #5328ff;
+  --mainBlue: #301B7D
+}
