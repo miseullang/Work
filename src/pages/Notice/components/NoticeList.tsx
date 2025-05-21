@@ -4,6 +4,7 @@ import { INotice } from '@carebell/bell-core';
 import NoticeItem from './NoticeItem';
 import NoticeSkeletonItem from './NoticeSkeletonItem';
 import { ErrorContext } from '@/contexts/ErrorContext';
+import { NoticeItemProps } from '@/types/Notice/NoticeItem.type';
 
 interface ListResponse {
   count: number;
@@ -44,16 +45,7 @@ const NoticeList = () => {
       {noticeResponse?.rows.map((notice) => (
         <NoticeItem
           key={notice.id}
-          notice={{
-            id: notice.id,
-            postUuid: notice.postUuid,
-            updatedAt: notice.updatedAt,
-            createdAt: notice.createdAt,
-            userUuid: notice.userUuid,
-            uuid: notice.uuid,
-            visibility: notice.visibility,
-            deletedAt: notice.deletedAt,
-          }}
+          notice={NoticeItemProps(notice)}
         />
       ))}
     </ul>
