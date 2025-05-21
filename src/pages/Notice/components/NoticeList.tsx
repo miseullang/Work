@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState, useContext, useCallback } from 'react';
 import { fetchNoticeList } from '@/api/notice';
 import { INotice } from '@carebell/bell-core';
 import NoticeItem from './NoticeItem';
@@ -18,7 +18,7 @@ const NoticeList = () => {
   const [loading, setLoading] = useState(true);
   const errorContext = useContext(ErrorContext);
 
-  const fetchNotices = async () => {
+  const fetchNotices = useCallback(async () => {
     try {
       const response = await fetchNoticeList();
       setNoticeResponse(response);
@@ -28,11 +28,11 @@ const NoticeList = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [errorContext]);
 
   useEffect(() => {
     fetchNotices();
-  }, []);
+  }, [fetchNotices]);
 
   if (loading) {
     return Array.from({ length: 5 }).map((_, index) => (
