@@ -27,7 +27,7 @@ const Post = ({ post }: PostProps) => {
       <Skeleton
         variant='rounded'
         width={300}
-        height={20}
+        height={30}
         animation='wave'
       />
     );

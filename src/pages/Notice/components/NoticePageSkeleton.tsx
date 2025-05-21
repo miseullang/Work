@@ -6,15 +6,10 @@ const NoticePageSkeleton = () => {
     <Box>
       <Box sx={{ mb: 4 }}>
         <Skeleton
-          variant='rectangular'
+          variant='rounded'
           width={120}
-          height={32}
+          height={56}
           sx={{ mb: 1 }}
-        />
-        <Skeleton
-          variant='text'
-          width='60%'
-          height={24}
         />
       </Box>
 
