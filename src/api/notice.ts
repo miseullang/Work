@@ -69,6 +69,7 @@ export const fetchNoticeWithDetails = async () => {
         try {
           return await fetchPost(notice.postUuid);
         } catch (error) {
+          console.error(error);
           throw new Error(
             `공지사항 ${notice.id}번의 상세 정보를 불러오는데 실패했습니다.`,
           );
@@ -82,6 +83,7 @@ export const fetchNoticeWithDetails = async () => {
         try {
           return await fetchLocalization(post.titleLocalizationUuid);
         } catch (error) {
+          console.error(error);
           throw new Error(
             `공지사항 제목의 번역 정보를 불러오는데 실패했습니다.`,
           );

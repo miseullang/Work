@@ -1,9 +1,9 @@
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState, useContext, useCallback } from 'react';
 import { fetchPost } from '@/api/notice';
 import { INotice, IPost } from '@carebell/bell-core';
 import Post from './Post';
 import Datetime from './Datetime';
-import { StyledListItem, StyledLink } from './Notice.style';
+import { StyledListItem, StyledLink, ErrorState } from './Notice.style';
 import NoticeSkeletonItem from './NoticeSkeletonItem';
 import { ErrorContext } from '@/contexts/ErrorContext';
 
@@ -16,7 +16,7 @@ const NoticeItem = ({ notice }: NoticeResponse) => {
   const [loading, setLoading] = useState(true);
   const errorContext = useContext(ErrorContext);
 
-  const fetchPostData = async () => {
+  const fetchPostData = useCallback(async () => {
     try {
       const postData = await fetchPost(notice.postUuid);
       setPost(postData);
@@ -26,18 +26,18 @@ const NoticeItem = ({ notice }: NoticeResponse) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [notice.postUuid, errorContext]);
 
   useEffect(() => {
     fetchPostData();
-  }, [notice.postUuid]);
+  }, [fetchPostData]);
 
   if (loading) {
     return <NoticeSkeletonItem />;
   }
 
   if (!post) {
-    return null;
+    return <ErrorState>데이터를 불러올 수 없습니다.</ErrorState>;
   }
 
   return (

@@ -1,9 +1,10 @@
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState, useContext, useCallback } from 'react';
 import { fetchNoticeList } from '@/api/notice';
 import { INotice } from '@carebell/bell-core';
 import NoticeItem from './NoticeItem';
 import NoticeSkeletonItem from './NoticeSkeletonItem';
 import { ErrorContext } from '@/contexts/ErrorContext';
+import { NoticeItemProps } from '@/types/Notice/NoticeItem.type';
 
 interface ListResponse {
   count: number;
@@ -17,7 +18,7 @@ const NoticeList = () => {
   const [loading, setLoading] = useState(true);
   const errorContext = useContext(ErrorContext);
 
-  const fetchNotices = async () => {
+  const fetchNotices = useCallback(async () => {
     try {
       const response = await fetchNoticeList();
       setNoticeResponse(response);
@@ -27,11 +28,11 @@ const NoticeList = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [errorContext]);
 
   useEffect(() => {
     fetchNotices();
-  }, []);
+  }, [fetchNotices]);
 
   if (loading) {
     return Array.from({ length: 5 }).map((_, index) => (
@@ -44,16 +45,7 @@ const NoticeList = () => {
       {noticeResponse?.rows.map((notice) => (
         <NoticeItem
           key={notice.id}
-          notice={{
-            id: notice.id,
-            postUuid: notice.postUuid,
-            updatedAt: notice.updatedAt,
-            createdAt: notice.createdAt,
-            userUuid: notice.userUuid,
-            uuid: notice.uuid,
-            visibility: notice.visibility,
-            deletedAt: notice.deletedAt,
-          }}
+          notice={NoticeItemProps(notice)}
         />
       ))}
     </ul>

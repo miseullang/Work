@@ -7,13 +7,13 @@ const NoticeSkeletonItem = () => {
       <Skeleton
         variant='rounded'
         width={100}
-        height={20}
+        height={30}
         animation='wave'
       />
       <Skeleton
         variant='rounded'
         width={300}
-        height={20}
+        height={30}
         animation='wave'
       />
     </StyledSkeleton>
