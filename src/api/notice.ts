@@ -4,7 +4,7 @@ import { noticeList } from '@/mock/Notice/NoticeMockData';
 import { mockPosts } from '@/mock/Notice/PostMockData';
 import { mockLocalizations } from '@/mock/Notice/LocalizationMockData';
 
-const BASE_URL = 'https://api.carebell.kr/v2/api';
+const BASE_URL = 'https://api.carebell.kr/v2';
 
 interface NoticeParams {
   limit?: number;
