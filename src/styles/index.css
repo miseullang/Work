@@ -13,3 +13,13 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.responsive {
+  max-width: 100%;
+  height: auto;
+}
+
+.max-content {
+  max-width: max-content;
+  margin: 0 auto;
+}
