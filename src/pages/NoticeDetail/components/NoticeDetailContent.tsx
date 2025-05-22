@@ -4,37 +4,18 @@ import { ILocalization } from '@carebell/bell-core';
 import { Box, Typography } from '@mui/material';
 import { NoticeContentProps } from '@/types/NoticeDetail/NoticeContent.type';
 import NoticeDetailContentSkeleton from './NoticeDetailContentSkeleton';
-import { EditorContent, useEditor } from '@tiptap/react';
-import StarterKit from '@tiptap/starter-kit';
-import Image from '@tiptap/extension-image';
+import RichTextViewer from '@/components/RichTextViewer';
 
 const NoticeDetailContent = ({ uuid }: NoticeContentProps) => {
   const [localization, setLocalization] = useState<ILocalization | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const editor = useEditor({
-    extensions: [
-      StarterKit,
-      Image.configure({
-        HTMLAttributes: {
-          class: 'responsive max-content',
-        },
-      }),
-    ],
-    editable: false,
-  });
-
   useEffect(() => {
     setLoading(true);
     fetchLocalization(uuid)
-      .then((data) => {
-        setLocalization(data);
-        if (editor && data.default) {
-          editor.commands.setContent(data.default);
-        }
-      })
+      .then(setLocalization)
       .finally(() => setLoading(false));
-  }, [uuid, editor]);
+  }, [uuid]);
 
   if (loading) {
     return <NoticeDetailContentSkeleton />;
@@ -44,28 +25,8 @@ const NoticeDetailContent = ({ uuid }: NoticeContentProps) => {
     return <Typography>데이터를 불러올 수 없습니다.</Typography>;
 
   return (
-    <Box
-      pt={2}
-      sx={{
-        '.ProseMirror': {
-          '& img': {
-            maxWidth: '100%',
-            height: 'auto',
-            display: 'block',
-            margin: '0 auto',
-          },
-          '& p': {
-            margin: '1rem 0',
-            '&:first-of-type': {
-              marginTop: 0,
-            },
-            '&:last-of-type': {
-              marginBottom: 0,
-            },
-          },
-        },
-      }}>
-      <EditorContent editor={editor} />
+    <Box pt={2}>
+      <RichTextViewer content={localization.default} />
     </Box>
   );
 };
