@@ -1,17 +1,14 @@
 import { useEffect, useState, useContext, useCallback } from 'react';
 import { fetchPost } from '@/api/notice';
-import { INotice, IPost } from '@carebell/bell-core';
+import { IPost } from '@carebell/bell-core';
 import Post from './Post';
 import Datetime from './Datetime';
 import { StyledListItem, StyledLink, ErrorState } from './Notice.style';
 import NoticeSkeletonItem from './NoticeSkeletonItem';
 import { ErrorContext } from '@/contexts/ErrorContext';
+import { NoticeItemProps } from '@/types/Notice/NoticeItem.type';
 
-interface NoticeResponse {
-  notice: INotice;
-}
-
-const NoticeItem = ({ notice }: NoticeResponse) => {
+const NoticeItem = ({ notice }: NoticeItemProps) => {
   const [post, setPost] = useState<IPost | null>(null);
   const [loading, setLoading] = useState(true);
   const errorContext = useContext(ErrorContext);

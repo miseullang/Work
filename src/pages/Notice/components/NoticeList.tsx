@@ -1,18 +1,13 @@
 import { useEffect, useState, useContext, useCallback } from 'react';
 import { fetchNoticeList } from '@/api/notice';
-import { INotice } from '@carebell/bell-core';
 import NoticeItem from './NoticeItem';
 import NoticeSkeletonItem from './NoticeSkeletonItem';
 import { ErrorContext } from '@/contexts/ErrorContext';
-import { NoticeItemProps } from '@/types/Notice/NoticeItem.type';
-
-interface ListResponse {
-  count: number;
-  rows: INotice[];
-}
+import { createNoticeItemProps } from '@/types/Notice/NoticeItem.type';
+import { NoticeListProps } from '@/types/Notice/NoticeList.type';
 
 const NoticeList = () => {
-  const [noticeResponse, setNoticeResponse] = useState<ListResponse | null>(
+  const [noticeResponse, setNoticeResponse] = useState<NoticeListProps | null>(
     null,
   );
   const [loading, setLoading] = useState(true);
@@ -45,7 +40,7 @@ const NoticeList = () => {
       {noticeResponse?.rows.map((notice) => (
         <NoticeItem
           key={notice.id}
-          notice={NoticeItemProps(notice)}
+          notice={createNoticeItemProps(notice)}
         />
       ))}
     </ul>

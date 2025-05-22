@@ -1,6 +1,10 @@
 import { INotice } from '@carebell/bell-core';
 
-export const NoticeItemProps = (notice: INotice): INotice => ({
+export interface NoticeItemProps {
+  notice: INotice;
+}
+
+export const createNoticeItemProps = (notice: INotice): INotice => ({
   id: notice.id,
   postUuid: notice.postUuid,
   updatedAt: notice.updatedAt,
