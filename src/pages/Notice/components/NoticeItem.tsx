@@ -59,7 +59,7 @@ class NoticeItem extends React.Component<NoticeItemProps, NoticeItemState> {
 
     return (
       <StyledListItem>
-        <StyledLink to={`/notice/${notice.id}`}>
+        <StyledLink to={`/notice/${notice.postUuid}`}>
           <Datetime datetime={notice.updatedAt ?? notice.createdAt} />
           <Post post={post} />
         </StyledLink>
