@@ -1,10 +1,11 @@
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Image from '@tiptap/extension-image';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { RichTextViewerProps } from '@/types/RichTextViewer/RichTextViewer.type';
+import NoticeDetailContentSkeleton from '@/pages/NoticeDetail/components/NoticeDetailContentSkeleton';
 
-const RichTextViewer = ({ content }: RichTextViewerProps) => {
+const RichTextViewer = ({ content,  }: RichTextViewerProps) => {
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -18,12 +19,13 @@ const RichTextViewer = ({ content }: RichTextViewerProps) => {
     editable: false,
   });
 
-  if (!editor) {
-    return null;
-  }
+  if (!content) return <Typography>내용이 없습니다.</Typography>;
+  if (!editor) return <NoticeDetailContentSkeleton />;
 
   return (
     <Box
+      role='article'
+      aria-label='리치 텍스트 컨텐츠'
       sx={{
         '.ProseMirror': {
           '& img': {
