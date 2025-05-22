@@ -1,9 +1,6 @@
 import { Typography } from '@mui/material';
 import { formatDate } from '@/utils/dateformat';
-
-interface DatetimeProps {
-  datetime: string;
-}
+import { DatetimeProps } from '@/types/Notice/DateTime.type';
 
 const Datetime = ({ datetime }: DatetimeProps) => {
   return (

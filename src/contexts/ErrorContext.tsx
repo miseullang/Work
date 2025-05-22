@@ -1,17 +1,11 @@
-import { createContext, useState, ReactNode } from 'react';
+import { createContext, useState } from 'react';
 import Toast from '@/components/Toast';
-
-interface ErrorContextType {
-  showError: (message: string) => void;
-  showWarning: (message: string) => void;
-  showInfo: (message: string) => void;
-}
+import {
+  ErrorContextType,
+  ErrorProviderProps,
+} from '@/types/ErrorContext/ErrorContext.type';
 
 export const ErrorContext = createContext<ErrorContextType | null>(null);
-
-interface ErrorProviderProps {
-  children: ReactNode;
-}
 
 export const ErrorProvider = ({ children }: ErrorProviderProps) => {
   const [toast, setToast] = useState({

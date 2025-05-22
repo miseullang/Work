@@ -1,11 +1,5 @@
 import { Alert, Snackbar } from '@mui/material';
-
-interface ToastProps {
-  open: boolean;
-  message: string;
-  severity: 'error' | 'warning' | 'info' | 'success';
-  onClose: () => void;
-}
+import { ToastProps } from '@/types/Toast/Toast.type';
 
 const Toast = ({ open, message, severity, onClose }: ToastProps) => (
   <Snackbar

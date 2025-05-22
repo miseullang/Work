@@ -1,11 +1,8 @@
 import { useEffect, useState } from 'react';
 import { fetchLocalization } from '@/api/notice';
-import { IPost, ILocalization } from '@carebell/bell-core';
+import { ILocalization } from '@carebell/bell-core';
 import { Skeleton, Typography } from '@mui/material';
-
-interface PostProps {
-  post: IPost;
-}
+import { PostProps } from '@/types/Notice/Post.type';
 
 const Post = ({ post }: PostProps) => {
   const [localization, setLocalization] = useState<ILocalization | null>(null);
