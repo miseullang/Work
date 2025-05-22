@@ -37,8 +37,9 @@ class NoticeItem extends React.Component<NoticeItemProps, NoticeItemState> {
       const postData = await fetchPost(this.props.notice.postUuid);
       this.setState({ post: postData });
     } catch (error) {
-      console.error(error);
-      this.context?.showError('공지사항을 불러오는데 실패했습니다.');
+      if (error instanceof Error) {
+        this.context?.showError(error.message);
+      }
     } finally {
       this.setState({ loading: false });
     }

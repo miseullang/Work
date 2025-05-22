@@ -2,8 +2,12 @@ import React from 'react';
 import { fetchLocalization } from '@/api/notice';
 import { Skeleton, Typography } from '@mui/material';
 import { PostProps, PostState } from '@/types/Notice/Post.type';
+import { ErrorContext } from '@/contexts/ErrorContext';
 
 class Post extends React.Component<PostProps, PostState> {
+  static contextType = ErrorContext;
+  declare context: React.ContextType<typeof ErrorContext>;
+
   constructor(props: PostProps) {
     super(props);
     this.state = {
@@ -38,6 +42,11 @@ class Post extends React.Component<PostProps, PostState> {
     fetchLocalization(titleLocalizationUuid)
       .then((data) => {
         this.setState({ localization: data });
+      })
+      .catch((error) => {
+        if (error instanceof Error) {
+          this.context?.showError(error.message);
+        }
       })
       .finally(() => {
         this.setState({ loading: false });
