@@ -29,8 +29,9 @@ class NoticeList extends React.Component<
       const response = await fetchNoticeList();
       this.setState({ noticeResponse: response });
     } catch (error) {
-      console.error(error);
-      this.context?.showError('공지사항 목록을 불러오는데 실패했습니다.');
+      if (error instanceof Error) {
+        this.context?.showError(error.message);
+      }
     } finally {
       this.setState({ loading: false });
     }
