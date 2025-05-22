@@ -1,4 +1,4 @@
-import { INotice } from '@carebell/bell-core';
+import { INotice, IPost } from '@carebell/bell-core';
 
 export interface NoticeItemProps {
   notice: Pick<
@@ -12,4 +12,9 @@ export interface NoticeItemProps {
     | 'visibility'
     | 'deletedAt'
   >;
+}
+
+export interface NoticeItemState {
+  post: IPost | null;
+  loading: boolean;
 }
