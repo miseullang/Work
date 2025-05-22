@@ -3,7 +3,6 @@ import { fetchNoticeList } from '@/api/notice';
 import NoticeItem from './NoticeItem';
 import NoticeSkeletonItem from './NoticeSkeletonItem';
 import { ErrorContext } from '@/contexts/ErrorContext';
-import { createNoticeItemProps } from '@/types/Notice/NoticeItem.type';
 import { NoticeListProps } from '@/types/Notice/NoticeList.type';
 
 const NoticeList = () => {
@@ -40,7 +39,7 @@ const NoticeList = () => {
       {noticeResponse?.rows.map((notice) => (
         <NoticeItem
           key={notice.id}
-          notice={createNoticeItemProps(notice)}
+          notice={notice}
         />
       ))}
     </ul>
