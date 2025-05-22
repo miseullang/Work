@@ -1,42 +1,71 @@
-import { useEffect, useState } from 'react';
+import React from 'react';
 import { fetchLocalization } from '@/api/notice';
-import { ILocalization } from '@carebell/bell-core';
 import { Skeleton, Typography } from '@mui/material';
-import { PostProps } from '@/types/Notice/Post.type';
+import { PostProps, PostState } from '@/types/Notice/Post.type';
 
-const Post = ({ post }: PostProps) => {
-  const [localization, setLocalization] = useState<ILocalization | null>(null);
-  const [loading, setLoading] = useState(true);
+class Post extends React.Component<PostProps, PostState> {
+  constructor(props: PostProps) {
+    super(props);
+    this.state = {
+      localization: null,
+      loading: true,
+    };
+  }
 
-  useEffect(() => {
-    if (!post.titleLocalizationUuid) {
-      setLoading(false);
+  componentDidMount() {
+    this.loadLocalization();
+  }
+
+  componentDidUpdate(prevProps: PostProps) {
+    if (
+      prevProps.post.titleLocalizationUuid !==
+      this.props.post.titleLocalizationUuid
+    ) {
+      this.loadLocalization();
+    }
+  }
+
+  loadLocalization = () => {
+    const { titleLocalizationUuid } = this.props.post;
+
+    if (!titleLocalizationUuid) {
+      this.setState({ loading: false, localization: null });
       return;
     }
 
-    fetchLocalization(post.titleLocalizationUuid)
-      .then(setLocalization)
-      .finally(() => setLoading(false));
-  }, [post.titleLocalizationUuid]);
+    this.setState({ loading: true });
 
-  if (loading) {
+    fetchLocalization(titleLocalizationUuid)
+      .then((data) => {
+        this.setState({ localization: data });
+      })
+      .finally(() => {
+        this.setState({ loading: false });
+      });
+  };
+
+  render() {
+    const { localization, loading } = this.state;
+
+    if (loading) {
+      return (
+        <Skeleton
+          variant='rounded'
+          width={300}
+          height={30}
+          animation='wave'
+        />
+      );
+    }
+
     return (
-      <Skeleton
-        variant='rounded'
-        width={300}
-        height={30}
-        animation='wave'
-      />
+      <Typography
+        variant='body2'
+        sx={{ fontSize: '1.333rem', color: 'var(--darkGray)' }}>
+        {localization?.default ?? ''}
+      </Typography>
     );
   }
-
-  return (
-    <Typography
-      variant='body2'
-      sx={{ fontSize: '1.333rem', color: 'var(--darkGray)' }}>
-      {localization?.default ?? ''}
-    </Typography>
-  );
-};
+}
 
 export default Post;

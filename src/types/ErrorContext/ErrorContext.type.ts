@@ -9,3 +9,11 @@ export interface ErrorContextType {
 export interface ErrorProviderProps {
   children: ReactNode;
 }
+
+export interface ErrorState {
+  toast: {
+    open: boolean;
+    message: string;
+    severity: 'error' | 'warning' | 'info';
+  };
+}
