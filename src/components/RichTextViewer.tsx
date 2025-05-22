@@ -5,7 +5,7 @@ import { Box, Typography } from '@mui/material';
 import { RichTextViewerProps } from '@/types/RichTextViewer/RichTextViewer.type';
 import NoticeDetailContentSkeleton from '@/pages/NoticeDetail/components/NoticeDetailContentSkeleton';
 
-const RichTextViewer = ({ content,  }: RichTextViewerProps) => {
+const RichTextViewer = ({ content }: RichTextViewerProps) => {
   const editor = useEditor({
     extensions: [
       StarterKit,

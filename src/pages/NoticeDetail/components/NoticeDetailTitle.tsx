@@ -1,42 +1,69 @@
-import { useState, useEffect } from 'react';
+import React from 'react';
 import { fetchLocalization } from '@/api/notice';
-import { ILocalization } from '@carebell/bell-core';
 import { Box, Typography } from '@mui/material';
-import { NoticeTitleProps } from '@/types/NoticeDetail/NoticeTitle.type';
+import { NoticeTitleProps } from '@/types/NoticeDetail/NoticeDetailTitle.type';
 import NoticeDetailTitleSkeleton from './NoticeDetailTitleSkeleton';
+import { NoticeDetailTitleState } from '@/types/NoticeDetail/NoticeDetailTitle.type';
 
-const NoticeDetailTitle = ({ uuid }: NoticeTitleProps) => {
-  const [localization, setLocalization] = useState<ILocalization | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    setLoading(true);
-    fetchLocalization(uuid)
-      .then(setLocalization)
-      .finally(() => setLoading(false));
-  }, [uuid]);
-
-  if (loading) {
-    return <NoticeDetailTitleSkeleton />;
+class NoticeDetailTitle extends React.Component<
+  NoticeTitleProps,
+  NoticeDetailTitleState
+> {
+  constructor(props: NoticeTitleProps) {
+    super(props);
+    this.state = {
+      localization: null,
+      loading: true,
+    };
   }
 
-  if (!localization) return null;
+  componentDidMount() {
+    this.fetchLocalizationData();
+  }
 
-  return (
-    <Box
-      pb={2}
-      borderBottom='1px solid var(--lightGray)'>
-      <Typography
-        variant='h1'
-        sx={{
-          fontSize: '2rem',
-          fontWeight: 'bold',
-          color: 'var(--darkGray)',
-        }}>
-        {localization.default}
-      </Typography>
-    </Box>
-  );
-};
+  componentDidUpdate(prevProps: NoticeTitleProps) {
+    if (prevProps.uuid !== this.props.uuid) {
+      this.fetchLocalizationData();
+    }
+  }
+
+  fetchLocalizationData = async () => {
+    const { uuid } = this.props;
+    this.setState({ loading: true });
+
+    try {
+      const data = await fetchLocalization(uuid);
+      this.setState({ localization: data });
+    } finally {
+      this.setState({ loading: false });
+    }
+  };
+
+  render() {
+    const { loading, localization } = this.state;
+
+    if (loading) {
+      return <NoticeDetailTitleSkeleton />;
+    }
+
+    if (!localization) return null;
+
+    return (
+      <Box
+        pb={2}
+        borderBottom='1px solid var(--lightGray)'>
+        <Typography
+          variant='h1'
+          sx={{
+            fontSize: '2rem',
+            fontWeight: 'bold',
+            color: 'var(--darkGray)',
+          }}>
+          {localization.default}
+        </Typography>
+      </Box>
+    );
+  }
+}
 
 export default NoticeDetailTitle;

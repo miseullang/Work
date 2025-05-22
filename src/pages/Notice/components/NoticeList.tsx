@@ -40,22 +40,22 @@ class NoticeList extends React.Component<
   render() {
     const { loading, noticeResponse } = this.state;
 
-    if (loading) {
-      return Array.from({ length: 5 }).map((_, index) => (
-        <NoticeSkeletonItem key={index} />
-      ));
-    }
+  if (loading) {
+    return Array.from({ length: 5 }).map((_, index) => (
+      <NoticeSkeletonItem key={index} />
+    ));
+  }
 
-    return (
-      <ul>
-        {noticeResponse?.rows.map((notice) => (
-          <NoticeItem
-            key={notice.id}
-            notice={notice}
-          />
-        ))}
-      </ul>
-    );
+  return (
+    <ul>
+      {noticeResponse?.rows.map((notice) => (
+        <NoticeItem
+          key={notice.id}
+          notice={notice}
+        />
+      ))}
+    </ul>
+  );
   }
 }
 
