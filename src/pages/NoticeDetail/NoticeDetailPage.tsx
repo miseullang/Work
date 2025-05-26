@@ -55,7 +55,7 @@ class NoticeDetailPageBase extends React.Component<
     const { post } = this.state;
 
     if (!post) {
-      return <div>데이터를 불러올 수 없습니다.</div>;
+      return <NoticeDetailPageSkeleton />;
     }
 
     return (
