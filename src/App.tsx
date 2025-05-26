@@ -1,6 +1,7 @@
 import { BrowserRouter } from 'react-router-dom';
-import Router from '@/routes/Router';
+
 import { ErrorProvider } from '@/contexts/ErrorContext';
+import Router from '@/routes/Router';
 
 function App() {
   return (

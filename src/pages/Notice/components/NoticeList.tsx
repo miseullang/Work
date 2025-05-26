@@ -1,9 +1,11 @@
 import React from 'react';
+
 import { fetchNoticeList } from '@/api/notice';
-import NoticeItem from './NoticeItem';
-import NoticeSkeletonItem from './NoticeSkeletonItem';
 import { ErrorContext } from '@/contexts/ErrorContext';
 import { NoticeListState } from '@/types/Notice/NoticeList.type';
+
+import NoticeItem from './NoticeItem';
+import NoticeItemSkeleton from './NoticeItemSkeleton';
 
 class NoticeList extends React.Component<
   Record<string, never>,
@@ -40,22 +42,22 @@ class NoticeList extends React.Component<
   render() {
     const { loading, noticeResponse } = this.state;
 
-  if (loading) {
-    return Array.from({ length: 5 }).map((_, index) => (
-      <NoticeSkeletonItem key={index} />
-    ));
-  }
+    if (loading) {
+      return Array.from({ length: 5 }).map((_, index) => (
+        <NoticeItemSkeleton key={index} />
+      ));
+    }
 
-  return (
-    <ul>
-      {noticeResponse?.rows.map((notice) => (
-        <NoticeItem
-          key={notice.id}
-          notice={notice}
-        />
-      ))}
-    </ul>
-  );
+    return (
+      <ul>
+        {noticeResponse?.rows.map((notice) => (
+          <NoticeItem
+            key={notice.id}
+            notice={notice}
+          />
+        ))}
+      </ul>
+    );
   }
 }
 

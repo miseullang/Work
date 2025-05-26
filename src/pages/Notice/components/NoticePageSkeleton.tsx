@@ -1,6 +1,8 @@
 import React from 'react';
+
 import { Box, Skeleton } from '@mui/material';
-import NoticeSkeletonItem from './NoticeSkeletonItem';
+
+import NoticeItemSkeleton from './NoticeItemSkeleton';
 
 class NoticePageSkeleton extends React.Component {
   render() {
@@ -9,14 +11,15 @@ class NoticePageSkeleton extends React.Component {
         <Box sx={{ mb: 4 }}>
           <Skeleton
             variant='rounded'
-            width={120}
-            height={56}
+            width={150}
+            height={50}
+            animation='wave'
             sx={{ mb: 1 }}
           />
         </Box>
 
         {Array.from({ length: 10 }).map((_, index) => (
-          <NoticeSkeletonItem key={index} />
+          <NoticeItemSkeleton key={index} />
         ))}
       </Box>
     );

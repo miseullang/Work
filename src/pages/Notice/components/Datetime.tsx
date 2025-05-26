@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { Typography } from '@mui/material';
-import { formatDate } from '@/utils/dateformat';
+
 import { DatetimeProps } from '@/types/Notice/DateTime.type';
+import { formatDate } from '@/utils/dateformat';
 
 class Datetime extends React.Component<DatetimeProps> {
   render() {

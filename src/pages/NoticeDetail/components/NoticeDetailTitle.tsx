@@ -1,9 +1,12 @@
 import React from 'react';
-import { fetchLocalization } from '@/api/notice';
+
 import { Box, Typography } from '@mui/material';
+
+import { fetchLocalization } from '@/api/notice';
 import { NoticeTitleProps } from '@/types/NoticeDetail/NoticeDetailTitle.type';
-import NoticeDetailTitleSkeleton from './NoticeDetailTitleSkeleton';
 import { NoticeDetailTitleState } from '@/types/NoticeDetail/NoticeDetailTitle.type';
+
+import NoticeDetailTitleSkeleton from './NoticeDetailTitleSkeleton';
 
 class NoticeDetailTitle extends React.Component<
   NoticeTitleProps,

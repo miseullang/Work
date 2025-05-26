@@ -1,9 +1,10 @@
+import { Box, Typography } from '@mui/material';
+import Image from '@tiptap/extension-image';
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import Image from '@tiptap/extension-image';
-import { Box, Typography } from '@mui/material';
-import { RichTextViewerProps } from '@/types/RichTextViewer/RichTextViewer.type';
+
 import NoticeDetailContentSkeleton from '@/pages/NoticeDetail/components/NoticeDetailContentSkeleton';
+import { RichTextViewerProps } from '@/types/RichTextViewer/RichTextViewer.type';
 
 const RichTextViewer = ({ content }: RichTextViewerProps) => {
   const editor = useEditor({

@@ -1,8 +1,12 @@
 import React from 'react';
+
+import { Typography } from '@mui/material';
+
 import { fetchLocalization } from '@/api/notice';
-import { Skeleton, Typography } from '@mui/material';
-import { PostProps, PostState } from '@/types/Notice/Post.type';
 import { ErrorContext } from '@/contexts/ErrorContext';
+import { PostProps, PostState } from '@/types/Notice/Post.type';
+
+import PostSkeleton from './PostSkeleton';
 
 class Post extends React.Component<PostProps, PostState> {
   static contextType = ErrorContext;
@@ -57,14 +61,7 @@ class Post extends React.Component<PostProps, PostState> {
     const { localization, loading } = this.state;
 
     if (loading) {
-      return (
-        <Skeleton
-          variant='rounded'
-          width={300}
-          height={30}
-          animation='wave'
-        />
-      );
+      return <PostSkeleton />;
     }
 
     return (
