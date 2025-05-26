@@ -1,14 +1,16 @@
 import React from 'react';
+
 import { fetchPost } from '@/api/notice';
-import Post from './Post';
-import Datetime from './Datetime';
-import { StyledListItem, StyledLink, ErrorState } from './Notice.style';
-import NoticeSkeletonItem from './NoticeSkeletonItem';
 import { ErrorContext } from '@/contexts/ErrorContext';
 import {
   NoticeItemProps,
   NoticeItemState,
 } from '@/types/Notice/NoticeItem.type';
+
+import Datetime from './Datetime';
+import { StyledListItem, StyledLink, ErrorState } from './Notice.style';
+import NoticeItemSkeleton from './NoticeItemSkeleton';
+import Post from './Post';
 
 class NoticeItem extends React.Component<NoticeItemProps, NoticeItemState> {
   static contextType = ErrorContext;
@@ -50,7 +52,7 @@ class NoticeItem extends React.Component<NoticeItemProps, NoticeItemState> {
     const { notice } = this.props;
 
     if (loading) {
-      return <NoticeSkeletonItem />;
+      return <NoticeItemSkeleton />;
     }
 
     if (!post) {

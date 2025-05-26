@@ -1,5 +1,6 @@
 import { INotice, IPost, ILocalization } from '@carebell/bell-core';
 import axios, { AxiosError } from 'axios';
+
 import { NoticeListProps } from '@/types/Notice/NoticeList.type';
 
 const BASE_URL = 'https://api.carebell.kr/v2';

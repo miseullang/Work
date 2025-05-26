@@ -1,6 +1,8 @@
 import React from 'react';
+
 import { Box, Skeleton } from '@mui/material';
-import NoticeSkeletonItem from './NoticeSkeletonItem';
+
+import NoticeItemSkeleton from './NoticeItemSkeleton';
 
 class NoticePageSkeleton extends React.Component {
   render() {
@@ -16,7 +18,7 @@ class NoticePageSkeleton extends React.Component {
         </Box>
 
         {Array.from({ length: 10 }).map((_, index) => (
-          <NoticeSkeletonItem key={index} />
+          <NoticeItemSkeleton key={index} />
         ))}
       </Box>
     );

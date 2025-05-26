@@ -1,14 +1,17 @@
 import React, { Suspense } from 'react';
+
 import { useParams } from 'react-router-dom';
+
 import { fetchPost } from '@/api/notice';
-import NoticeContent from './components/NoticeDetailContent';
-import NoticeTitle from './components/NoticeDetailTitle';
-import NoticeDetailPageSkeleton from './components/NoticeDetailPageSkeleton';
 import { ErrorContext } from '@/contexts/ErrorContext';
 import {
   NoticeDetailPageProps,
   NoticeDetailPageState,
 } from '@/types/NoticeDetail/NoticeDetailPage.type';
+
+import NoticeContent from './components/NoticeDetailContent';
+import NoticeDetailPageSkeleton from './components/NoticeDetailPageSkeleton';
+import NoticeTitle from './components/NoticeDetailTitle';
 
 class NoticeDetailPageBase extends React.Component<
   NoticeDetailPageProps,

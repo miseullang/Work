@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { Alert, Snackbar } from '@mui/material';
+
 import { ToastProps } from '@/types/Toast/Toast.type';
 
 class Toast extends React.Component<ToastProps> {

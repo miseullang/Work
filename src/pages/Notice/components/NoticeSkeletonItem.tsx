@@ -1,26 +1,18 @@
 import React from 'react';
-import Skeleton from '@mui/material/Skeleton';
-import { StyledSkeleton } from './Notice.style';
 
-class NoticeSkeletonItem extends React.Component {
+import DatetimeSkeleton from './DatetimeSkeleton';
+import { StyledSkeleton } from './Notice.style';
+import PostSkeleton from './PostSkeleton';
+
+class NoticeItemSkeleton extends React.Component {
   render() {
     return (
       <StyledSkeleton>
-        <Skeleton
-          variant='rounded'
-          width={100}
-          height={30}
-          animation='wave'
-        />
-        <Skeleton
-          variant='rounded'
-          width={300}
-          height={30}
-          animation='wave'
-        />
+        <DatetimeSkeleton />
+        <PostSkeleton />
       </StyledSkeleton>
     );
   }
 }
 
-export default NoticeSkeletonItem;
+export default NoticeItemSkeleton;

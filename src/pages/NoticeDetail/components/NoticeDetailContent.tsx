@@ -1,10 +1,13 @@
 import React from 'react';
-import { fetchLocalization } from '@/api/notice';
+
 import { Box, Typography } from '@mui/material';
-import { NoticeContentProps } from '@/types/NoticeDetail/NoticeDetailContent.type';
-import NoticeDetailContentSkeleton from './NoticeDetailContentSkeleton';
+
+import { fetchLocalization } from '@/api/notice';
 import RichTextViewer from '@/components/RichTextViewer';
+import { NoticeContentProps } from '@/types/NoticeDetail/NoticeDetailContent.type';
 import { NoticeDetailContentState } from '@/types/NoticeDetail/NoticeDetailContent.type';
+
+import NoticeDetailContentSkeleton from './NoticeDetailContentSkeleton';
 
 class NoticeDetailContent extends React.Component<
   NoticeContentProps,

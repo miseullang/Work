@@ -1,4 +1,5 @@
 import React from 'react';
+
 import NoticeDetailContentSkeleton from './NoticeDetailContentSkeleton';
 import NoticeDetailTitleSkeleton from './NoticeDetailTitleSkeleton';
 
