@@ -20,6 +20,24 @@ class Post extends React.Component<PostProps, PostState> {
     };
   }
 
+  shouldComponentUpdate(nextProps: PostProps, nextState: PostState): boolean {
+    const currentPost = this.props.post;
+    const nextPost = nextProps.post;
+
+    if (currentPost.titleLocalizationUuid !== nextPost.titleLocalizationUuid) {
+      return true;
+    }
+
+    if (this.state.loading !== nextState.loading) {
+      return true;
+    }
+    if (this.state.localization !== nextState.localization) {
+      return true;
+    }
+
+    return false;
+  }
+
   componentDidMount() {
     this.loadLocalization();
   }

@@ -9,9 +9,9 @@ import {
   NoticeDetailPageState,
 } from '@/types/NoticeDetail/NoticeDetailPage.type';
 
-import NoticeContent from './components/NoticeDetailContent';
+import NoticeDetailContent from './components/NoticeDetailContent';
 import NoticeDetailPageSkeleton from './components/NoticeDetailPageSkeleton';
-import NoticeTitle from './components/NoticeDetailTitle';
+import NoticeDetailTitle from './components/NoticeDetailTitle';
 
 class NoticeDetailPageBase extends React.Component<
   NoticeDetailPageProps,
@@ -25,6 +25,21 @@ class NoticeDetailPageBase extends React.Component<
     this.state = {
       post: null,
     };
+  }
+
+  shouldComponentUpdate(
+    nextProps: NoticeDetailPageProps,
+    nextState: NoticeDetailPageState,
+  ): boolean {
+    if (this.props.postUuid !== nextProps.postUuid) {
+      return true;
+    }
+
+    if (this.state.post !== nextState.post) {
+      return true;
+    }
+
+    return false;
   }
 
   componentDidMount() {
@@ -61,8 +76,8 @@ class NoticeDetailPageBase extends React.Component<
     return (
       <Suspense fallback={<NoticeDetailPageSkeleton />}>
         <section>
-          <NoticeTitle uuid={post.titleLocalizationUuid} />
-          <NoticeContent uuid={post.contentLocalizationUuid} />
+          <NoticeDetailTitle uuid={post.titleLocalizationUuid} />
+          <NoticeDetailContent uuid={post.contentLocalizationUuid} />
         </section>
       </Suspense>
     );

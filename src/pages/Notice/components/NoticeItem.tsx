@@ -24,6 +24,24 @@ class NoticeItem extends React.Component<NoticeItemProps, NoticeItemState> {
     };
   }
 
+  shouldComponentUpdate(
+    nextProps: NoticeItemProps,
+    nextState: NoticeItemState,
+  ): boolean {
+    if (this.props.notice.postUuid !== nextProps.notice.postUuid) {
+      return true;
+    }
+
+    if (this.state.loading !== nextState.loading) {
+      return true;
+    }
+    if (this.state.post !== nextState.post) {
+      return true;
+    }
+
+    return false;
+  }
+
   componentDidMount() {
     this.fetchPostData();
   }
