@@ -11,8 +11,9 @@ class NoticePageSkeleton extends React.Component {
         <Box sx={{ mb: 4 }}>
           <Skeleton
             variant='rounded'
-            width={120}
-            height={56}
+            width={150}
+            height={50}
+            animation='wave'
             sx={{ mb: 1 }}
           />
         </Box>

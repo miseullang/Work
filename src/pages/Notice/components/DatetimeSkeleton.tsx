@@ -8,10 +8,10 @@ class DatetimeSkeleton extends React.Component {
       <Skeleton
         variant='rounded'
         width={100}
-      height={30}
-      animation='wave'
-    />
-  );
+        height={30}
+        animation='wave'
+      />
+    );
   }
 }
 
