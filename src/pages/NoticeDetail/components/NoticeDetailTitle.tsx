@@ -20,6 +20,24 @@ class NoticeDetailTitle extends React.Component<
     };
   }
 
+  shouldComponentUpdate(
+    nextProps: NoticeTitleProps,
+    nextState: NoticeDetailTitleState,
+  ): boolean {
+    if (this.props.uuid !== nextProps.uuid) {
+      return true;
+    }
+
+    if (this.state.loading !== nextState.loading) {
+      return true;
+    }
+    if (this.state.localization !== nextState.localization) {
+      return true;
+    }
+
+    return false;
+  }
+
   componentDidMount() {
     this.fetchLocalizationData();
   }

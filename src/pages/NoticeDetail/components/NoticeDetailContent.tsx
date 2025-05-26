@@ -21,6 +21,24 @@ class NoticeDetailContent extends React.Component<
     };
   }
 
+  shouldComponentUpdate(
+    nextProps: NoticeContentProps,
+    nextState: NoticeDetailContentState,
+  ): boolean {
+    if (this.props.uuid !== nextProps.uuid) {
+      return true;
+    }
+
+    if (this.state.loading !== nextState.loading) {
+      return true;
+    }
+    if (this.state.localization !== nextState.localization) {
+      return true;
+    }
+
+    return false;
+  }
+
   componentDidMount() {
     this.fetchLocalizationData();
   }
