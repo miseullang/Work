@@ -4,15 +4,17 @@ import { Typography } from '@mui/material';
 
 import { fetchLocalization } from '@/api/notice';
 import { ErrorContext } from '@/contexts/ErrorContext';
+import { withLanguage } from '@/contexts/LanguageContext';
+import { LanguageContextType } from '@/types/LanguageContext/LanguageContext.type';
 import { PostProps, PostState } from '@/types/Notice/Post.type';
 
 import PostSkeleton from './PostSkeleton';
 
-class Post extends React.Component<PostProps, PostState> {
+class Post extends React.Component<PostProps & LanguageContextType, PostState> {
   static contextType = ErrorContext;
   declare context: React.ContextType<typeof ErrorContext>;
 
-  constructor(props: PostProps) {
+  constructor(props: PostProps & LanguageContextType) {
     super(props);
     this.state = {
       localization: null,
@@ -20,7 +22,10 @@ class Post extends React.Component<PostProps, PostState> {
     };
   }
 
-  shouldComponentUpdate(nextProps: PostProps, nextState: PostState): boolean {
+  shouldComponentUpdate(
+    nextProps: PostProps & LanguageContextType,
+    nextState: PostState,
+  ): boolean {
     const currentPost = this.props.post;
     const nextPost = nextProps.post;
 
@@ -35,6 +40,10 @@ class Post extends React.Component<PostProps, PostState> {
       return true;
     }
 
+    if (this.props.currentLanguage !== nextProps.currentLanguage) {
+      return true;
+    }
+
     return false;
   }
 
@@ -42,7 +51,7 @@ class Post extends React.Component<PostProps, PostState> {
     this.loadLocalization();
   }
 
-  componentDidUpdate(prevProps: PostProps) {
+  componentDidUpdate(prevProps: PostProps & LanguageContextType) {
     if (
       prevProps.post.titleLocalizationUuid !==
       this.props.post.titleLocalizationUuid
@@ -77,6 +86,7 @@ class Post extends React.Component<PostProps, PostState> {
 
   render() {
     const { localization, loading } = this.state;
+    const { getLocalizedContent } = this.props;
 
     if (loading) {
       return <PostSkeleton />;
@@ -86,10 +96,10 @@ class Post extends React.Component<PostProps, PostState> {
       <Typography
         variant='body2'
         sx={{ fontSize: '1.333rem', color: 'var(--darkGray)' }}>
-        {localization?.default ?? ''}
+        {getLocalizedContent(localization)}
       </Typography>
     );
   }
 }
 
-export default Post;
+export default withLanguage(Post);

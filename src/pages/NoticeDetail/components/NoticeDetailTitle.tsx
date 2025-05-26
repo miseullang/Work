@@ -3,16 +3,18 @@ import React from 'react';
 import { Box, Typography } from '@mui/material';
 
 import { fetchLocalization } from '@/api/notice';
+import { withLanguage } from '@/contexts/LanguageContext';
+import { LanguageContextType } from '@/types/LanguageContext/LanguageContext.type';
 import { NoticeTitleProps } from '@/types/NoticeDetail/NoticeDetailTitle.type';
 import { NoticeDetailTitleState } from '@/types/NoticeDetail/NoticeDetailTitle.type';
 
 import NoticeDetailTitleSkeleton from './NoticeDetailTitleSkeleton';
 
 class NoticeDetailTitle extends React.Component<
-  NoticeTitleProps,
+  NoticeTitleProps & LanguageContextType,
   NoticeDetailTitleState
 > {
-  constructor(props: NoticeTitleProps) {
+  constructor(props: NoticeTitleProps & LanguageContextType) {
     super(props);
     this.state = {
       localization: null,
@@ -21,7 +23,7 @@ class NoticeDetailTitle extends React.Component<
   }
 
   shouldComponentUpdate(
-    nextProps: NoticeTitleProps,
+    nextProps: NoticeTitleProps & LanguageContextType,
     nextState: NoticeDetailTitleState,
   ): boolean {
     if (this.props.uuid !== nextProps.uuid) {
@@ -35,6 +37,10 @@ class NoticeDetailTitle extends React.Component<
       return true;
     }
 
+    if (this.props.currentLanguage !== nextProps.currentLanguage) {
+      return true;
+    }
+
     return false;
   }
 
@@ -42,7 +48,7 @@ class NoticeDetailTitle extends React.Component<
     this.fetchLocalizationData();
   }
 
-  componentDidUpdate(prevProps: NoticeTitleProps) {
+  componentDidUpdate(prevProps: NoticeTitleProps & LanguageContextType) {
     if (prevProps.uuid !== this.props.uuid) {
       this.fetchLocalizationData();
     }
@@ -62,6 +68,7 @@ class NoticeDetailTitle extends React.Component<
 
   render() {
     const { loading, localization } = this.state;
+    const { getLocalizedContent } = this.props;
 
     if (loading) {
       return <NoticeDetailTitleSkeleton />;
@@ -80,11 +87,11 @@ class NoticeDetailTitle extends React.Component<
             fontWeight: 'bold',
             color: 'var(--darkGray)',
           }}>
-          {localization.default}
+          {getLocalizedContent(localization)}
         </Typography>
       </Box>
     );
   }
 }
 
-export default NoticeDetailTitle;
+export default withLanguage(NoticeDetailTitle);
