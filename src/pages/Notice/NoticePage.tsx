@@ -12,8 +12,8 @@ class NoticePage extends React.Component {
     return (
       <Suspense fallback={<NoticePageSkeleton />}>
         <Box>
-        <NoticeHeader />
-        <NoticeList />  
+          <NoticeHeader />
+          <NoticeList />
         </Box>
       </Suspense>
     );
