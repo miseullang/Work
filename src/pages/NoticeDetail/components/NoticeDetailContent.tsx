@@ -4,18 +4,21 @@ import { Box, Typography } from '@mui/material';
 
 import { fetchLocalization } from '@/api/notice';
 import RichTextViewer from '@/components/RichTextViewer';
-import { withLanguage } from '@/contexts/LanguageContext';
-import { LanguageContextType } from '@/types/LanguageContext/LanguageContext.type';
+import { validateLanguageContext } from '@/contexts/LanguageContext';
+import { LanguageContext } from '@/contexts/LanguageProvider';
 import { NoticeContentProps } from '@/types/NoticeDetail/NoticeDetailContent.type';
 import { NoticeDetailContentState } from '@/types/NoticeDetail/NoticeDetailContent.type';
 
 import NoticeDetailContentSkeleton from './NoticeDetailContentSkeleton';
 
 class NoticeDetailContent extends React.Component<
-  NoticeContentProps & LanguageContextType,
+  NoticeContentProps,
   NoticeDetailContentState
 > {
-  constructor(props: NoticeContentProps & LanguageContextType) {
+  static contextType = LanguageContext;
+  declare context: React.ContextType<typeof LanguageContext>;
+
+  constructor(props: NoticeContentProps) {
     super(props);
     this.state = {
       localization: null,
@@ -24,7 +27,7 @@ class NoticeDetailContent extends React.Component<
   }
 
   shouldComponentUpdate(
-    nextProps: NoticeContentProps & LanguageContextType,
+    nextProps: NoticeContentProps,
     nextState: NoticeDetailContentState,
   ): boolean {
     if (this.props.uuid !== nextProps.uuid) {
@@ -38,10 +41,6 @@ class NoticeDetailContent extends React.Component<
       return true;
     }
 
-    if (this.props.currentLanguage !== nextProps.currentLanguage) {
-      return true;
-    }
-
     return false;
   }
 
@@ -49,7 +48,7 @@ class NoticeDetailContent extends React.Component<
     this.fetchLocalizationData();
   }
 
-  componentDidUpdate(prevProps: NoticeContentProps & LanguageContextType) {
+  componentDidUpdate(prevProps: NoticeContentProps) {
     if (prevProps.uuid !== this.props.uuid) {
       this.fetchLocalizationData();
     }
@@ -69,7 +68,7 @@ class NoticeDetailContent extends React.Component<
 
   render() {
     const { loading, localization } = this.state;
-    const { getLocalizedContent } = this.props;
+    const { getLocalizedContent } = validateLanguageContext(this.context);
 
     if (loading) {
       return <NoticeDetailContentSkeleton />;
@@ -87,4 +86,4 @@ class NoticeDetailContent extends React.Component<
   }
 }
 
-export default withLanguage(NoticeDetailContent);
+export default NoticeDetailContent;

@@ -4,17 +4,17 @@ import { Typography } from '@mui/material';
 
 import { fetchLocalization } from '@/api/notice';
 import { ErrorContext } from '@/contexts/ErrorContext';
-import { withLanguage } from '@/contexts/LanguageContext';
-import { LanguageContextType } from '@/types/LanguageContext/LanguageContext.type';
+import { validateLanguageContext } from '@/contexts/LanguageContext';
+import { LanguageContext } from '@/contexts/LanguageProvider';
 import { PostProps, PostState } from '@/types/Notice/Post.type';
 
 import PostSkeleton from './PostSkeleton';
 
-class Post extends React.Component<PostProps & LanguageContextType, PostState> {
+class Post extends React.Component<PostProps, PostState> {
   static contextType = ErrorContext;
   declare context: React.ContextType<typeof ErrorContext>;
 
-  constructor(props: PostProps & LanguageContextType) {
+  constructor(props: PostProps) {
     super(props);
     this.state = {
       localization: null,
@@ -22,10 +22,7 @@ class Post extends React.Component<PostProps & LanguageContextType, PostState> {
     };
   }
 
-  shouldComponentUpdate(
-    nextProps: PostProps & LanguageContextType,
-    nextState: PostState,
-  ): boolean {
+  shouldComponentUpdate(nextProps: PostProps, nextState: PostState): boolean {
     const currentPost = this.props.post;
     const nextPost = nextProps.post;
 
@@ -40,10 +37,6 @@ class Post extends React.Component<PostProps & LanguageContextType, PostState> {
       return true;
     }
 
-    if (this.props.currentLanguage !== nextProps.currentLanguage) {
-      return true;
-    }
-
     return false;
   }
 
@@ -51,7 +44,7 @@ class Post extends React.Component<PostProps & LanguageContextType, PostState> {
     this.loadLocalization();
   }
 
-  componentDidUpdate(prevProps: PostProps & LanguageContextType) {
+  componentDidUpdate(prevProps: PostProps) {
     if (
       prevProps.post.titleLocalizationUuid !==
       this.props.post.titleLocalizationUuid
@@ -86,20 +79,27 @@ class Post extends React.Component<PostProps & LanguageContextType, PostState> {
 
   render() {
     const { localization, loading } = this.state;
-    const { getLocalizedContent } = this.props;
 
     if (loading) {
       return <PostSkeleton />;
     }
 
     return (
-      <Typography
-        variant='body2'
-        sx={{ fontSize: '1.333rem', color: 'var(--darkGray)' }}>
-        {getLocalizedContent(localization)}
-      </Typography>
+      <LanguageContext.Consumer>
+        {(languageContext) => {
+          const validatedContext = validateLanguageContext(languageContext);
+
+          return (
+            <Typography
+              variant='body2'
+              sx={{ fontSize: '1.333rem', color: 'var(--darkGray)' }}>
+              {validatedContext.getLocalizedContent(localization)}
+            </Typography>
+          );
+        }}
+      </LanguageContext.Consumer>
     );
   }
 }
 
-export default withLanguage(Post);
+export default Post;

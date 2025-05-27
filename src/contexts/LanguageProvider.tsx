@@ -1,4 +1,4 @@
-import React, { createContext, Component } from 'react';
+import { createContext, Component } from 'react';
 
 import { ILocalization } from '@carebell/bell-core';
 
@@ -105,35 +105,5 @@ export class LanguageProvider extends Component<
     );
   }
 }
-
-export function withLanguage<P extends object>(
-  WrappedComponent: React.ComponentType<P & LanguageContextType>,
-) {
-  return class WithLanguageComponent extends Component<P> {
-    static contextType = LanguageContext;
-    declare context: React.ContextType<typeof LanguageContext>;
-
-    render() {
-      if (!this.context) {
-        throw new Error('withLanguage must be used within a LanguageProvider');
-      }
-
-      return (
-        <WrappedComponent
-          {...(this.props as P)}
-          {...this.context}
-        />
-      );
-    }
-  };
-}
-
-export const useLanguage = (): LanguageContextType => {
-  const context = React.useContext(LanguageContext);
-  if (context === undefined) {
-    throw new Error('언어 컨텍스트가 없습니다.');
-  }
-  return context;
-};
 
 export { LanguageContext };

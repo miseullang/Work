@@ -6,22 +6,25 @@ import { FormControl, InputLabel } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
-import { withLanguage } from '@/contexts/LanguageContext';
-import { LanguageContextType } from '@/types/LanguageContext/LanguageContext.type';
+import { validateLanguageContext } from '@/contexts/LanguageContext';
+import { LanguageContext } from '@/contexts/LanguageProvider';
 
-class MainPage extends React.Component<LanguageContextType> {
+class MainPage extends React.Component {
+  static contextType = LanguageContext;
+  declare context: React.ContextType<typeof LanguageContext>;
+
   handleChange = (event: SelectChangeEvent) => {
     const selectedLanguage = event.target.value as
       | 'default'
       | 'ko'
       | 'en'
       | 'ja';
-    this.props.setLanguage(selectedLanguage);
+    validateLanguageContext(this.context).setLanguage(selectedLanguage);
     console.log('언어 변경', selectedLanguage);
   };
 
   render() {
-    const { currentLanguage } = this.props;
+    const { currentLanguage } = validateLanguageContext(this.context);
 
     return (
       <div>
@@ -44,4 +47,4 @@ class MainPage extends React.Component<LanguageContextType> {
   }
 }
 
-export default withLanguage(MainPage);
+export default MainPage;
