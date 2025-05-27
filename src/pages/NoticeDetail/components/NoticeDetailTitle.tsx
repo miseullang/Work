@@ -3,18 +3,21 @@ import React from 'react';
 import { Box, Typography } from '@mui/material';
 
 import { fetchLocalization } from '@/api/notice';
-import { withLanguage } from '@/contexts/LanguageContext';
-import { LanguageContextType } from '@/types/LanguageContext/LanguageContext.type';
+import { validateLanguageContext } from '@/contexts/LanguageContext';
+import { LanguageContext } from '@/contexts/LanguageProvider';
 import { NoticeTitleProps } from '@/types/NoticeDetail/NoticeDetailTitle.type';
 import { NoticeDetailTitleState } from '@/types/NoticeDetail/NoticeDetailTitle.type';
 
 import NoticeDetailTitleSkeleton from './NoticeDetailTitleSkeleton';
 
 class NoticeDetailTitle extends React.Component<
-  NoticeTitleProps & LanguageContextType,
+  NoticeTitleProps,
   NoticeDetailTitleState
 > {
-  constructor(props: NoticeTitleProps & LanguageContextType) {
+  static contextType = LanguageContext;
+  declare context: React.ContextType<typeof LanguageContext>;
+
+  constructor(props: NoticeTitleProps) {
     super(props);
     this.state = {
       localization: null,
@@ -23,7 +26,7 @@ class NoticeDetailTitle extends React.Component<
   }
 
   shouldComponentUpdate(
-    nextProps: NoticeTitleProps & LanguageContextType,
+    nextProps: NoticeTitleProps,
     nextState: NoticeDetailTitleState,
   ): boolean {
     if (this.props.uuid !== nextProps.uuid) {
@@ -37,10 +40,6 @@ class NoticeDetailTitle extends React.Component<
       return true;
     }
 
-    if (this.props.currentLanguage !== nextProps.currentLanguage) {
-      return true;
-    }
-
     return false;
   }
 
@@ -48,7 +47,7 @@ class NoticeDetailTitle extends React.Component<
     this.fetchLocalizationData();
   }
 
-  componentDidUpdate(prevProps: NoticeTitleProps & LanguageContextType) {
+  componentDidUpdate(prevProps: NoticeTitleProps) {
     if (prevProps.uuid !== this.props.uuid) {
       this.fetchLocalizationData();
     }
@@ -68,7 +67,7 @@ class NoticeDetailTitle extends React.Component<
 
   render() {
     const { loading, localization } = this.state;
-    const { getLocalizedContent } = this.props;
+    const { getLocalizedContent } = validateLanguageContext(this.context);
 
     if (loading) {
       return <NoticeDetailTitleSkeleton />;
@@ -94,4 +93,4 @@ class NoticeDetailTitle extends React.Component<
   }
 }
 
-export default withLanguage(NoticeDetailTitle);
+export default NoticeDetailTitle;
