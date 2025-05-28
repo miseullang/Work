@@ -79,7 +79,12 @@ class NoticeDetailContent extends React.Component<
     }
 
     return (
-      <Box pt={2}>
+      <Box
+        pt={'80px'}
+        sx={{
+          textAlign: 'center',
+          '& img': { display: 'block', margin: '0 auto' },
+        }}>
         <RichTextViewer content={getLocalizedContent(localization)} />
       </Box>
     );

@@ -1,0 +1,9 @@
+.responsive {
+  max-width: 100%;
+  height: auto;
+}
+
+.max-content {
+  max-width: max-content;
+  margin: 0 auto;
+}

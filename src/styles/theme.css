@@ -15,5 +15,8 @@
   --maxWidthBoard: 1440px;
   --main_blue: #301B7D;
   --subBlue: #5328ff;
-  --mainBlue: #301B7D
+  --mainBlue: #301B7D;
+
+  --maxWidthBoard: 1440px;
+  --comPadding: 0 50px;
 }
