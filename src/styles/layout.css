@@ -1,0 +1,7 @@
+.main-wrapper {
+  max-width: var(--maxWidthBoard);
+  margin: 220px auto;
+  background: #fff;
+  box-sizing: border-box;
+  padding: var(--comPadding);
+}

@@ -92,7 +92,11 @@ class Post extends React.Component<PostProps, PostState> {
           return (
             <Typography
               variant='body2'
-              sx={{ fontSize: '1.333rem', color: 'var(--darkGray)' }}>
+              sx={{
+                fontSize: '1.333rem',
+                color: 'var(--darkGray)',
+                fontWeight: 600,
+              }}>
               {validatedContext.getLocalizedContent(localization)}
             </Typography>
           );
