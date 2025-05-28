@@ -7,7 +7,7 @@ import {
   LanguageContextType,
   LanguageProviderProps,
   LanguageProviderState,
-} from '@/types/LanguageContext/LanguageContext.type';
+} from '@/types/components/LanguageContext.type';
 
 const LanguageContext = createContext<LanguageContextType | undefined>(
   undefined,

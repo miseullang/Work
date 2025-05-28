@@ -1,4 +1,4 @@
-import { LanguageContextType } from '@/types/LanguageContext/LanguageContext.type';
+import { LanguageContextType } from '@/types/components/LanguageContext.type';
 
 export const validateLanguageContext = (
   context: LanguageContextType | undefined,

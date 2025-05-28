@@ -6,7 +6,7 @@ import {
   ErrorContextType,
   ErrorProviderProps,
   ErrorState,
-} from '@/types/ErrorContext/ErrorContext.type';
+} from '@/types/components/ErrorContext.type';
 
 export const ErrorContext = createContext<ErrorContextType | null>(null);
 

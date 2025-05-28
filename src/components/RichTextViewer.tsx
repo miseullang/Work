@@ -4,7 +4,7 @@ import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 
 import NoticeDetailContentSkeleton from '@/pages/NoticeDetail/components/NoticeDetailContentSkeleton';
-import { RichTextViewerProps } from '@/types/RichTextViewer/RichTextViewer.type';
+import { RichTextViewerProps } from '@/types/components/RichTextViewer.type';
 
 const RichTextViewer = ({ content }: RichTextViewerProps) => {
   const editor = useEditor({
