@@ -1,7 +1,7 @@
-import { INotice, IPost, ILocalization } from '@carebell/bell-core';
+import { IPost, ILocalization } from '@carebell/bell-core';
 import axios, { AxiosError } from 'axios';
 
-import { NoticeListProps } from '@/types/Notice/NoticeList.type';
+import { NoticeListProps, NoticeListParams } from '@/types/Notice/NoticeList.type';
 
 const BASE_URL = 'https://api.carebell.kr/v2';
 
@@ -23,8 +23,26 @@ const handleApiError = (error: unknown) => {
   throw error;
 };
 
+/**
+ * @param params {
+ *  limit: number; // 한 페이지에 보여줄 게시글 수
+ *  offset: number; // 페이지 번호
+ *  order[]: string[] // ['id', 'desc']
+ *  include[]: string[] // POST
+ *  visibility[]: // 1
+ *  application[]: // 16
+ *  createdAt[]: // ["2025-02-01T00:00:00Z", null]
+ *  updatedAt[]: // ["2025-02-01T00:00:00Z", null]
+ * }
+ * @returns {
+ *  data: {
+ *    notices: INotice[];
+ *    total: number;
+ *  }
+ * }
+ */
 export const fetchNoticeList = async (
-  params?: INotice,
+  params?: NoticeListParams,
 ): Promise<NoticeListProps> => {
   try {
     const { data } = await axios.get(`${BASE_URL}/notice`, { params });
